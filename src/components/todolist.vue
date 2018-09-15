@@ -1,13 +1,21 @@
 <template>
   <div >
     <h1>{{ msg }}</h1>
-    <input class="inputbox" type="text" v-model="content" @keyup.enter='saveData'>
+    <input class="inputbox" 
+            type="text" 
+            v-model.trim="content"
+            ref="form" 
+            maxlength="30"
+            @keyup.enter='saveData'>
+    <p class="errtips" v-show="showtips">{{tips}}</p>
     <ul>
       <li v-for="(item,idx) in listData"
           :key="idx"
           @click='item.finished=!item.finished'
-          :class={active:item.finished}
-      >{{item.content}}</li>
+          :class={active:item.finished}>
+          <p>{{idx}}. {{item.content}}</p>
+          <p v-show='item.finished'>&times;</p>
+          </li>
     </ul>
   </div>
 </template>
@@ -20,28 +28,40 @@ export default {
       msg: 'Todo List',
       content:'',
       listData:[],
+      tips:'',
+      showtips:false,
     }
   },
   methods:{
       saveData(){
+        if(!this.content){
+            this.tips='请输入内容';
+            this.showtips=true;
+            this.$refs['form'].focus();
+            return;
+        }
         this.listData.push({
           content:this.content,
           finished:false,
         });
         this.content='';
       },
-  }
+  },
+  watch:{
+    content(){
+      this.content.length<0 ? this.showtips=true : this.showtips=false;
+    }
+  },
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
 h1, h2 {
   font-weight: normal;
 }
 .inputbox{
   width:500px;
-  height:24px;
+  height:30px;
   margin:0 auto;
 }
 ul {
@@ -51,16 +71,22 @@ ul {
   margin:0 auto;
 }
 li {
-  margin: 0 10px;
   cursor:pointer;
   font-size: 20px;
   text-align: left;
-  padding:20px 10px;
+  padding:20px 0;
+  display:flex;
+  justify-content:space-between;
   &.active{
     color: #42b983;
   }
 }
-a {
-  color: #42b983;
+.errtips{
+  width:500px;
+  height:30px;
+  margin:0 auto;
+  color:red;
+  text-align: left;
 }
+
 </style>
