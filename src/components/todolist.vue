@@ -1,10 +1,12 @@
 <template>
-  <div >
+<main>
+ <div class="main">
     <h1>{{ msg }}</h1>
     <input class="inputbox" 
             type="text" 
             v-model.trim="content"
-            ref="form" 
+            ref="form"
+            placeholder="添加待办项" 
             maxlength="30"
             @keyup.enter='saveData'>
     <p class="errtips" v-show="showtips">{{tips}}</p>
@@ -18,6 +20,8 @@
           </li>
     </ul>
   </div>
+</main>
+ 
 </template>
 
 <script>
@@ -56,6 +60,15 @@ export default {
 </script>
 
 <style lang='less' scoped>
+main{
+  background-color:#cdcdcd;
+}
+.main{
+  width:500px;
+  height:30px;
+  margin:0 auto;
+  
+}
 h1, h2 {
   font-weight: normal;
 }
@@ -74,7 +87,6 @@ li {
   cursor:pointer;
   font-size: 20px;
   text-align: left;
-  padding:20px 0;
   display:flex;
   justify-content:space-between;
   &.active{
