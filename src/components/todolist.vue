@@ -19,7 +19,7 @@
           :key="idx"
            v-if="!item.done"
           :class={active:item.done}>
-          <input type="checkbox" v-model.lazy='item.done' @click="setData()">
+          <input type="checkbox" v-model.lazy='item.done' >
           <p>{{item.content}}</p>
           <p v-show='item.done'>✔</p>
           </li>
@@ -33,7 +33,7 @@
           :key="idx"
           v-if="item.done"
           :class={active:item.done}>
-          <input type="checkbox" v-model.lazy='item.done' @click="setData()">
+          <input type="checkbox" v-model.lazy='item.done' >
           <p>{{item.content}}</p>
           <p v-show='item.done'>✔</p>
         </li>
@@ -72,15 +72,13 @@ export default {
         this.content='';
       },
       setData(){
-        this.getDoneCount();
         localStorage.setItem('todo',JSON.stringify(this.listData));
       },
-      getDoneCount(){
-        let data=this.listData;
+      getDoneCount(list){
         let dnum=0;
-        data.forEach((val,idx)=>{
+        list.forEach((val,idx)=>{
             if(val.done){
-              this.doneNum=dnum++;
+              this.doneNum=++dnum;
             }
         });
       },
@@ -89,16 +87,21 @@ export default {
     content(){
       this.content.length<0 ? this.showtips=true : this.showtips=false;
     },
-    listData(){
-      this.setData();
-    },
+    listData:{
+      handler:function(oldval,newval){
+          this.setData();
+          this.getDoneCount(newval);
+      },
+      deep:true
+    }
   },
   mounted(){
     let data=localStorage.getItem('todo') || [];
+    data=JSON.parse(data);
     if(data.length>0){
-      this.listData=JSON.parse(data);
+      this.listData=data;
     }
-    this.getDoneCount();
+    this.getDoneCount(data);
   },
 }
 </script>
