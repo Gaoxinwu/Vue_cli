@@ -7,7 +7,7 @@
             v-model.trim="content"
             ref="form"
             placeholder="添加待办项" 
-            maxlength="30"
+            maxlength="20"
             @keyup.enter='saveData'>
     <p class="errtips" v-show="showtips">{{tips}}</p>
     <div class="main-title">
@@ -22,14 +22,11 @@
           :class={active:item.done}>
           <div class="leftitem">
             <input type="checkbox" v-model.lazy='item.done' >
-          <template v-if="!edit">
-            <p @dblclick="edit=!edit">{{item.content}}</p>
-          </template>
-          <template v-else>
-            <input type="text" v-model="item.content" @keyup.enter='edit=!edit'>
-          </template>
+            <editinput :item='item'
+                      class="editbox"
+            ></editinput>
           </div>
-          <p class="deletebtn" @click='remove(idx)'>删除</p>
+          <p class="deletebtn" @click='remove(idx)' title="删除该项">删除&times;</p>
           </li>
     </ul>
     <div class="main-title">
@@ -46,6 +43,7 @@
           <p v-show='item.done'>✔</p>
         </li>
     </ul>
+    <editinput></editinput>
   </div>
 </main>
  
@@ -62,8 +60,15 @@ export default {
       tips:'',
       showtips:false,
       doneNum:0,
-      edit:false,
     }
+  },
+  mounted(){
+    let data=localStorage.getItem('todo') || [];
+    data=JSON.parse(data);
+    if(data.length>0){
+      this.listData=data;
+    }
+    this.getDoneCount(data);
   },
   methods:{
       saveData(){
@@ -109,16 +114,39 @@ export default {
       deep:true
     }
   },
-  mounted(){
-    let data=localStorage.getItem('todo') || [];
-    data=JSON.parse(data);
-    if(data.length>0){
-      this.listData=data;
-    }
-    this.getDoneCount(data);
+  components:{
+    editinput:{
+      data:function(){
+        return{
+          edit:false,
+        }
+      },
+      props:['item'],
+      template:`
+        <div >
+          <template v-if="!edit">
+            <p @dblclick="edit=!edit" title='双击可以编辑'>{{item.content}}</p>
+          </template>
+          <template v-else>
+            <input type="text" v-model="item.content" @keyup.enter='edit=!edit' maxlength="20">
+          </template>
+        </div>
+      `
+    },
   },
+  
 }
 </script>
+<style lang='less'>
+  .editbox{
+    p,input{
+      margin:0;
+      font-size: 16px;
+      width:350px;
+    }
+  }
+</style>
+
 
 <style lang='less' scoped>
 main{
@@ -166,6 +194,9 @@ li {
   }
   .leftitem{
     display: flex;
+    p{
+      margin:0;
+    }
   }
 }
 .deletebtn{
