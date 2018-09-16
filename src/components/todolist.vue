@@ -18,10 +18,18 @@
       <li v-for="(item,idx) in listData"
           :key="idx"
            v-if="!item.done"
+           draggable="true"
           :class={active:item.done}>
-          <input type="checkbox" v-model.lazy='item.done' >
-          <p>{{item.content}}</p>
-          <p v-show='item.done'>✔</p>
+          <div class="leftitem">
+            <input type="checkbox" v-model.lazy='item.done' >
+          <template v-if="!edit">
+            <p @dblclick="edit=!edit">{{item.content}}</p>
+          </template>
+          <template v-else>
+            <input type="text" v-model="item.content" @keyup.enter='edit=!edit'>
+          </template>
+          </div>
+          <p class="deletebtn" @click='remove(idx)'>删除</p>
           </li>
     </ul>
     <div class="main-title">
@@ -54,6 +62,7 @@ export default {
       tips:'',
       showtips:false,
       doneNum:0,
+      edit:false,
     }
   },
   methods:{
@@ -70,6 +79,11 @@ export default {
         });
         this.setData();
         this.content='';
+      },
+      remove(index){
+        if(confirm('您确定要删除该项吗？')){
+          this.listData.splice(index,1);
+        }
       },
       setData(){
         localStorage.setItem('todo',JSON.stringify(this.listData));
@@ -143,10 +157,22 @@ li {
   font-size: 20px;
   text-align: left;
   display:flex;
-  justify-content:flex-start;
+  justify-content:space-between;
   &.active{
     color: #42b983;
   }
+  &:hover{
+    background-color: #f3f3f3;
+  }
+  .leftitem{
+    display: flex;
+  }
+}
+.deletebtn{
+  color:red;
+  width:15%;
+  text-align: center;
+  cursor:pointer;
 }
 .errtips{
   width:500px;
