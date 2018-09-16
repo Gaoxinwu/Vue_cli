@@ -37,10 +37,14 @@
       <li v-for="(item,idx) in listData"
           :key="idx"
           v-if="item.done"
+          class="donebox"
           :class={active:item.done}>
-          <input type="checkbox" v-model.lazy='item.done' >
-          <p>{{item.content}}</p>
-          <p v-show='item.done'>✔</p>
+          <div class="leftitem">
+              <input type="checkbox" v-model.lazy='item.done' >
+              <p>{{item.content}}</p>
+              <p v-show='item.done'>✔</p>
+          </div>
+          <p class="deletebtn" @click='remove(idx)' title="删除该项">删除&times;</p>
         </li>
     </ul>
     <editinput></editinput>
@@ -198,6 +202,10 @@ li {
       margin:0;
     }
   }
+}
+.donebox{
+  display: flex;
+  justify-content: space-between;
 }
 .deletebtn{
   color:red;
