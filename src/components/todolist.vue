@@ -154,7 +154,8 @@ export default {
 
 <style lang='less' scoped>
 main{
-  background-color:#cdcdcd;
+  background:#cdcdcd url(/static/img/bg-img.jpg);
+  min-height:1000px;
 }
 p{
   margin:0;
@@ -212,6 +213,7 @@ li {
   width:15%;
   text-align: center;
   cursor:pointer;
+  font-size:15px;
 }
 .errtips{
   width:500px;
