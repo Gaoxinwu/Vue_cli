@@ -132,7 +132,7 @@ export default {
             <p @dblclick="edit=!edit" title='双击可以编辑'>{{item.content}}</p>
           </template>
           <template v-else>
-            <input type="text" v-model="item.content" @keyup.enter='edit=!edit' maxlength="20">
+            <input type="text" v-model="item.content"  maxlength="20" @blur='edit=!edit'>
           </template>
         </div>
       `
@@ -154,7 +154,7 @@ export default {
 
 <style lang='less' scoped>
 main{
-  background:#cdcdcd url(/static/img/bg-img.jpg);
+  // background:#cdcdcd url(/static/img/bg-img.jpg);
   min-height:1000px;
 }
 p{
