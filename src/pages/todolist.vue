@@ -49,11 +49,12 @@
     </ul>
     <editinput></editinput>
   </div>
+  <appfoot></appfoot>
 </main>
- 
 </template>
 
 <script>
+import appfoot from '@/components/footer.vue'
 export default {
   name: 'todolist',
   data () {
@@ -65,6 +66,9 @@ export default {
       showtips:false,
       doneNum:0,
     }
+  },
+  components:{
+    appfoot,
   },
   mounted(){
     let data=localStorage.getItem('todo') || [];
@@ -154,7 +158,7 @@ export default {
 
 <style lang='less' scoped>
 main{
-  // background:#cdcdcd url(/static/img/bg-img.jpg);
+  //background:#cdcdcd url(/static/img/bg-img.jpg);
   min-height:1000px;
 }
 p{
