@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import appfoot from '@/components/footer.vue'
+import appfoot from '../components/footer.vue'
 export default {
   name: 'todolist',
   data () {
