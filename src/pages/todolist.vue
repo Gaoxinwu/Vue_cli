@@ -49,7 +49,7 @@
     </ul>
     <editinput></editinput>
   </div>
-  <appfoot></appfoot>
+  <!-- <appfoot></appfoot> -->
 </main>
 </template>
 
@@ -131,12 +131,12 @@ export default {
       },
       props:['item'],
       template:`
-        <div >
+        <div v-if='item'>
           <template v-if="!edit">
             <p @dblclick="edit=!edit" title='双击可以编辑'>{{item.content}}</p>
           </template>
           <template v-else>
-            <input type="text" v-model="item.content"  maxlength="20" @blur='edit=!edit'>
+            <input type="text" v-model="item.content" maxlength="20" @blur='edit=!edit'>
           </template>
         </div>
       `
@@ -158,7 +158,7 @@ export default {
 
 <style lang='less' scoped>
 main{
-  //background:#cdcdcd url(/static/img/bg-img.jpg);
+  background:#cdcdcd url(/static/img/bg-img.jpg);
   min-height:1000px;
 }
 p{
