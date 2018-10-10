@@ -1,5 +1,5 @@
 <template>
-<main>
+<div>
  <div class="main">
     <h1>{{ title }}</h1>
     <input class="inputbox" 
@@ -50,13 +50,24 @@
     <editinput></editinput>
   </div>
   <!-- <appfoot></appfoot> -->
-</main>
+  <ul>
+            <itemli text='111111' />
+            <itemli text='pppppppppppppppp'></itemli>
+        </ul>
+</div>
 </template>
 
 <script>
-import appfoot from '../components/footer.vue'
+import appfoot from '@/components/footer.vue'
+import item2 from '@/components/ItemTemplate.vue'
 export default {
-  name: 'todolist',
+  components:{
+            itemli:item2
+        },
+  // name: 'todolist',
+  // components:{
+  //   appfoot,
+  // },
   data () {
     return {
       title: 'Todo List',
@@ -66,9 +77,6 @@ export default {
       showtips:false,
       doneNum:0,
     }
-  },
-  components:{
-    appfoot,
   },
   mounted(){
     let data=localStorage.getItem('todo') || [];
