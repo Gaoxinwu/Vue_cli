@@ -50,24 +50,17 @@
     <editinput></editinput>
   </div>
   <!-- <appfoot></appfoot> -->
-  <ul>
-            <itemli text='111111' />
-            <itemli text='pppppppppppppppp'></itemli>
-        </ul>
+
 </div>
 </template>
 
 <script>
 import appfoot from '@/components/footer.vue'
-import item2 from '@/components/ItemTemplate.vue'
 export default {
+  name: 'todolist',
   components:{
-            itemli:item2
-        },
-  // name: 'todolist',
-  // components:{
-  //   appfoot,
-  // },
+    appfoot,
+  },
   data () {
     return {
       title: 'Todo List',
