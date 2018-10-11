@@ -68,7 +68,7 @@ export default {
     }
   },
   components:{
-    appfoot,
+    'appfoot':appfoot,
   },
   mounted(){
     let data=localStorage.getItem('todo') || [];
