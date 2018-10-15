@@ -1,14 +1,16 @@
 <template>
     <div>
-        <router-link to="/">返回首页</router-link>
+        <router-link to="/">首页</router-link>
         <a href="http://www.todolist.cn/">Demo</a>
     </div>
 </template>
 <script>
     export default{
-        name:'footer',
-        data:{
+        name:'vfooter',
+        data(){
+            return{
 
+            }
         },
     }
 </script>

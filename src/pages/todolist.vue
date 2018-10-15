@@ -48,19 +48,16 @@
         </li>
     </ul>
     <editinput></editinput>
-    <router-link to="/">返回首页</router-link>
-    <!-- <appfoot></appfoot> -->
+    <appfoot></appfoot>
   </div>
 </div>
 </template>
 
 <script>
 import appfoot from '@/components/footer.vue';
+import editinput from '@/components/editInput.vue'
 export default {
   name: 'todolist',
-  components:{
-    appfoot
-  },
   data () {
     return {
       title: 'Todo List',
@@ -124,24 +121,26 @@ export default {
     }
   },
   components:{
-    editinput:{
-      data:function(){
-        return{
-          edit:false,
-        }
-      },
-      props:['item'],
-      template:`
-        <div v-if='item'>
-          <template v-if="!edit">
-            <p @dblclick="edit=!edit" title='双击可以编辑'>{{item.content}}</p>
-          </template>
-          <template v-else>
-            <input type="text" v-model="item.content" maxlength="20" @blur='edit=!edit'>
-          </template>
-        </div>
-      `
-    },
+    appfoot,
+    editinput,
+    // editinput:{
+    //   data:function(){
+    //     return{
+    //       edit:false,
+    //     }
+    //   },
+    //   props:['item'],
+    //   template:`
+    //     <div v-if='item'>
+    //       <template v-if="!edit">
+    //         <p @dblclick="edit=!edit" title='双击可以编辑'>{{item.content}}</p>
+    //       </template>
+    //       <template v-else>
+    //         <input type="text" v-model="item.content" maxlength="20" @blur='edit=!edit'>
+    //       </template>
+    //     </div>
+    //   `
+    // },
   },
   
 }
