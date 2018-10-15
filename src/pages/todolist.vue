@@ -1,5 +1,5 @@
 <template>
-<main>
+<div>
  <div class="main">
     <h1>{{ title }}</h1>
     <input class="inputbox" 
@@ -48,15 +48,19 @@
         </li>
     </ul>
     <editinput></editinput>
+    <router-link to="/">返回首页</router-link>
+    <!-- <appfoot></appfoot> -->
   </div>
-  <!-- <appfoot></appfoot> -->
-</main>
+</div>
 </template>
 
 <script>
-import appfoot from '../components/footer.vue'
+import appfoot from '@/components/footer.vue';
 export default {
   name: 'todolist',
+  components:{
+    appfoot
+  },
   data () {
     return {
       title: 'Todo List',
@@ -66,9 +70,6 @@ export default {
       showtips:false,
       doneNum:0,
     }
-  },
-  components:{
-    'appfoot':appfoot,
   },
   mounted(){
     let data=localStorage.getItem('todo') || [];

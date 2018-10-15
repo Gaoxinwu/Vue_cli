@@ -1,5 +1,6 @@
 <template>
     <div>
+        <router-link to="/">返回首页</router-link>
         <a href="http://www.todolist.cn/">Demo</a>
     </div>
 </template>
