@@ -13,7 +13,7 @@
         props:['item'],
         data(){
             return{
-            edit:false,
+                edit:false,
             }
         },
     }

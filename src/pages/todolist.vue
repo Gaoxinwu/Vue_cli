@@ -2,11 +2,11 @@
 <main>
  <div class="main">
     <h1>{{ title }}</h1>
-    <input class="inputbox" 
-            type="text" 
+    <input class="inputbox"
+            type="text"
             v-model.trim="content"
             ref="form"
-            placeholder="添加待办项" 
+            placeholder="添加待办项"
             maxlength="20"
             @keyup.enter='saveData'>
     <p class="errtips" v-show="showtips">{{tips}}</p>
@@ -47,7 +47,6 @@
           <p class="deletebtn" @click='remove(idx)' title="删除该项">删除&times;</p>
         </li>
     </ul>
-    <editinput></editinput>
     <appfoot></appfoot>
   </div>
 </main>
@@ -55,7 +54,7 @@
 
 <script>
 import appfoot from '@/components/footer.vue';
-import editinput from '@/components/editInput.vue'
+import editinput from '@/packages/edit-input/src/editInput.vue'
 export default {
   name: 'todolist',
   data () {
@@ -124,7 +123,7 @@ export default {
     appfoot,
     editinput,
   },
-  
+
 }
 </script>
 <style lang='less'>
@@ -156,7 +155,7 @@ h2{
   width:500px;
   height:30px;
   margin:0 auto;
-  
+
 }
 h1, h2 {
   font-weight: normal;
